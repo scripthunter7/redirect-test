@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>subpage 1</title>
+  </head>
+  <body>
+    <script>
+      async function detectAdblock() {
+        try {
+          var googlead = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+          var response = await fetch(googlead);
+          var result = await response.text();
+          if (result.length < 1000) {
+            console.log("Adblock detected! response length is " + result.length + " but it should be larger than 1.000");
+          }
+          if (response.url != googlead) {
+            console.log("Adblock detected! response URL is " + response.url + " but it should be " + googlead);
+          }
+        } catch (e) {
+          console.log("Adblock detected! The request got blocked");
+        } finally {
+          // Unbreak the site when the script got executed
+        }
+      }
+      detectAdblock();
+    </script>
+  </body>
+</html>
